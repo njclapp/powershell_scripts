@@ -35,7 +35,7 @@ param(
 #####################################################################################################
 #####################################################################################################
 
-$SSN = "\d{3}[ \-]\d{2}[ \-]\d{4}$"
+$SSN = @("^\d{3}[ \-]\d{2}[ \-]\d{4}$", "^\d{9}$")
 $Visa = "^4\d{3}([\ \-]?)\d{4}[\ \-]\d{4}[\ \-]\d{4}$"
 $AmericanExpress = "^3[47]\d{2}[\ \-]\d{4}[\ \-]\d{4}[\ \-]\d{4}$"
 $MasterCard = @("^5[1-5]\d{2}([\ \-]?)\d{4}\1\d{4}\1\d{4}$", "^2720|2221\s{0,1}\d{4}\s{0,1}\d{4}\s{0,1}\d{4}$")
@@ -53,7 +53,7 @@ if($All)
 if($S)
 {
     Write-Host "Collecting possible social security numbers..." -ForegroundColor Green
-    Get-ChildItem -Recurse -Path $Path -Exclude *.*db, *.jpg, *.xps, *.pdf, *.bmp, *.xfdl, *.ppt, *.exe, *.dll | Select-String $SSN | select filename, line, path | Export-Csv ssn.csv -Append
+    Get-ChildItem -Recurse -Path $Path -Exclude *.*db, *.jpg, *.xps, *.pdf, *.bmp, *.xfdl, *.ppt, *.exe, *.dll | Select-String $SSN | select filename, line, path | Export-csv ssn.csv -Append
 }
 if($V)
 {
