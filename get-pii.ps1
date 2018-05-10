@@ -28,6 +28,6 @@ $saveFile = "$saveDirectory\PII_scan_$datetime.csv"
 Write-Host "Creating PIIScan directory if applicable..."
 New-Item -Path $saveDirectory -ItemType Directory -ErrorAction SilentlyContinue
 
-Write-Host "Collecting possible PII..." -ForegroundColor Green
-Get-ChildItem -Recurse -Path $Path -Exclude *.*db, *.jpg, *.xps, *.pdf, *.bmp, *.xfdl, *.ppt, *.exe, *.dll -ErrorAction SilentlyContinue | Select-String $SSN, $Visa, $AmericanExpress, $MasterCard, $Discover | select linenumber, filename, path | Export-csv "$saveFile" -Append
-Write-Host "Finished collecting possible PII..." -ForegroundColor Yellow
+Write-Host "Collecting possible PII..." -ForegroundColor Yellow
+Get-ChildItem -Recurse -Path $Path -Exclude *.exe,*.dll -ErrorAction SilentlyContinue | Select-String $SSN, $Visa, $AmericanExpress, $MasterCard, $Discover | select linenumber, filename, path | Export-csv "$saveFile" -Append
+Write-Host "Finished collecting possible PII..." -ForegroundColor Green
